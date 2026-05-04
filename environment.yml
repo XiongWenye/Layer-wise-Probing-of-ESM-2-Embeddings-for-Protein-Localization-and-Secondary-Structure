@@ -1,0 +1,24 @@
+name: mcb128-esm-probe
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - pyyaml
+  - pydantic>=2
+  - h5py
+  - matplotlib
+  - seaborn
+  - tqdm
+  - pytest
+  - pytorch
+  - pytorch-cuda=12.1
+  - pip:
+      - fair-esm
+      - pyarrow

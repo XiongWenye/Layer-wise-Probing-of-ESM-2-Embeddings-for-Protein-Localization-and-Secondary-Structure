@@ -1,0 +1,57 @@
+project:
+  name: esm_layer_probe
+  run_group: cb513_probe
+  output_dir: results
+  cache_dir: data/processed/cache
+  seed: 1
+  deterministic: true
+  num_workers: 4
+  device: auto
+
+data:
+  task: secondary_structure
+  train_dataset: cullpdb5926_filtered
+  final_test_dataset: cb513
+  raw_dir: data/raw
+  processed_dir: data/processed
+  splits_dir: data/splits
+  label_set: q3
+  preserve_cb513_for_final_test: true
+  max_sequence_length: 1022
+  truncate_long_sequences: false
+  validate_sequences: true
+
+model:
+  esm_name: esm2_t12_35M_UR50D
+  esm_names: [esm2_t12_35M_UR50D, esm2_t30_150M_UR50D]
+  layers: [6, 12, 30]
+  allow_invalid_layers: error
+  freeze_esm: true
+  embedding_storage: hdf5
+
+probe:
+  architecture: token_mlp
+  hidden_dim: [128, 256]
+  dropout: [0.1, 0.3]
+  output: per_residue_softmax
+
+training:
+  batch_size: 16
+  epochs: 20
+  patience: 5
+  loss: masked_cross_entropy
+  learning_rate: [0.001, 0.0003]
+  weight_decay: [0.0, 0.0001]
+  seeds: [1, 2, 3]
+  amp: true
+  gradient_clip_norm: 1.0
+
+metrics:
+  secondary_structure:
+    - q3_accuracy
+    - per_class_f1
+
+logging:
+  level: INFO
+  save_predictions: true
+  save_train_curves: true

@@ -1,0 +1,41 @@
+project:
+  name: esm_layer_probe
+  run_group: deeploc_baselines
+  output_dir: results
+  cache_dir: data/processed/cache
+  seed: 1
+  deterministic: true
+  num_workers: 4
+  device: auto
+
+data:
+  task: localization
+  dataset: deeploc2
+  external_test: hpa
+  raw_dir: data/raw
+  processed_dir: data/processed
+  splits_dir: data/splits
+  folds: [0, 1, 2, 3, 4]
+  preserve_official_splits: true
+  max_sequence_length: 1022
+  truncate_long_sequences: false
+  validate_sequences: true
+
+baseline:
+  methods: [aac, dipeptide, length_aac]
+  classifier: logistic_regression
+  class_weight: balanced
+  max_iter: 5000
+
+metrics:
+  localization:
+    - micro_f1
+    - macro_f1
+    - jaccard
+    - per_label_mcc
+    - auroc_per_label
+
+logging:
+  level: INFO
+  save_predictions: true
+  save_train_curves: true

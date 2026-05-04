@@ -1,0 +1,49 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[H{\o}ie et~al.(2022)H{\o}ie, Kiehl, Petersen, Nielsen, Winther,
+  Nielsen, Hallgren, and Marcatili]{hoie2022netsurfp}
+H{\o}ie, M.~H., Kiehl, E.~N., Petersen, B., Nielsen, M., Winther, O., Nielsen,
+  H., Hallgren, J., and Marcatili, P.
+\newblock Netsurfp-3.0: accurate and fast prediction of protein structural
+  features by protein language models and deep learning.
+\newblock \emph{Nucleic Acids Research}, 50\penalty0 (W1):\penalty0 W510--W515,
+  2022.
+\newblock \doi{10.1093/nar/gkac439}.
+
+\bibitem[Lin et~al.(2023)Lin, Akin, Rao, Hie, Zhu, Lu, Smetanin, Verkuil,
+  Kabeli, Shmueli, dos Santos~Costa, Fazel-Zarandi, Sercu, Candido, and
+  Rives]{lin2023evolutionary}
+Lin, Z., Akin, H., Rao, R., Hie, B., Zhu, Z., Lu, W., Smetanin, N., Verkuil,
+  R., Kabeli, O., Shmueli, Y., dos Santos~Costa, A., Fazel-Zarandi, M., Sercu,
+  T., Candido, S., and Rives, A.
+\newblock Evolutionary-scale prediction of atomic-level protein structure with
+  a language model.
+\newblock \emph{Science}, 379\penalty0 (6637):\penalty0 1123--1130, 2023.
+\newblock \doi{10.1126/science.ade2574}.
+
+\bibitem[Rives et~al.(2021)Rives, Meier, Sercu, Goyal, Lin, Liu, Guo, Ott,
+  Zitnick, Ma, and Fergus]{rives2021biological}
+Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M.,
+  Zitnick, C.~L., Ma, J., and Fergus, R.
+\newblock Biological structure and function emerge from scaling unsupervised
+  learning to 250 million protein sequences.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 118\penalty0
+  (15), 2021.
+\newblock \doi{10.1073/pnas.2016239118}.
+
+\bibitem[Thumuluri et~al.(2022)Thumuluri, Almagro~Armenteros, Johansen,
+  Nielsen, and Winther]{thumuluri2022deeploc}
+Thumuluri, V., Almagro~Armenteros, J.~J., Johansen, A.~R., Nielsen, H., and
+  Winther, O.
+\newblock Deeploc 2.0: multi-label subcellular localization prediction using
+  protein language models.
+\newblock \emph{Nucleic Acids Research}, 50\penalty0 (W1):\penalty0 W228--W234,
+  2022.
+\newblock \doi{10.1093/nar/gkac278}.
+
+\end{thebibliography}

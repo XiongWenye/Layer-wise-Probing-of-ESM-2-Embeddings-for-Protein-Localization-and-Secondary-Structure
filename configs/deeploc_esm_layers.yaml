@@ -1,0 +1,65 @@
+project:
+  name: esm_layer_probe
+  run_group: deeploc_esm_layers
+  output_dir: results
+  cache_dir: data/processed/cache
+  seed: 1
+  deterministic: true
+  num_workers: 4
+  device: auto
+
+data:
+  task: localization
+  dataset: deeploc2
+  external_test: hpa
+  raw_dir: data/raw
+  processed_dir: data/processed
+  splits_dir: data/splits
+  folds: [0, 1, 2, 3, 4]
+  preserve_official_splits: true
+  max_sequence_length: 1022
+  truncate_long_sequences: false
+  validate_sequences: true
+
+model:
+  esm_name: esm2_t12_35M_UR50D
+  esm_names:
+    - esm2_t12_35M_UR50D
+    - esm2_t30_150M_UR50D
+    - esm2_t33_650M_UR50D
+  layers: [6, 12, 30, 33]
+  allow_invalid_layers: error
+  freeze_esm: true
+  embedding_storage: hdf5
+
+probe:
+  pooling: [mean, max, attention]
+  hidden_dim: [128, 256, 512]
+  dropout: [0.1, 0.3, 0.5]
+  activation: gelu
+  output: multilabel_sigmoid
+
+training:
+  batch_size: 32
+  epochs: 20
+  patience: 5
+  learning_rate: [0.001, 0.0003]
+  weight_decay: [0.0, 0.0001, 0.001]
+  seeds: [1, 2, 3]
+  loss: bce_with_logits
+  threshold_selection: validation_macro_f1
+  amp: true
+  gradient_clip_norm: 1.0
+
+metrics:
+  localization:
+    - micro_f1
+    - macro_f1
+    - jaccard
+    - per_label_mcc
+    - auroc_per_label
+
+logging:
+  level: INFO
+  save_predictions: true
+  save_train_curves: true
