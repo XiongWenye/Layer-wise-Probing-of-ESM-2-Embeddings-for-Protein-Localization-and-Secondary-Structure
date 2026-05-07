@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2025.7.7)  4 MAY 2026 16:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2025.7.7)  7 MAY 2026 18:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -683,6 +683,45 @@ LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <9> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 31.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 34.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pcr' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+Underfull \hbox (badness 4303) in paragraph at lines 34--35
+\OT1/ptm/m/n/10 (+20) at-ten-tion ex-ten-sion reaches $\OT1/cmr/m/n/10 0\OML/cm
+m/m/it/10 :\OT1/cmr/m/n/10 663 \OMS/cmsy/m/n/10 ^^F \OT1/cmr/m/n/10 0\OML/cmm/m
+/it/10 :\OT1/cmr/m/n/10 014$\OT1/ptm/m/n/10 (+20) .
+ []
+
+
+Underfull \hbox (badness 7099) in paragraph at lines 34--35
+\OT1/ptm/m/n/10 (+20) at [][]\OT1/pcr/m/n/10 https://github.com/XiongWenye/
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+\OT1/pcr/m/n/10 Layer-wise-Probing-of-ESM-2-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+\OT1/pcr/m/n/10 Embeddings-for-Protein-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+\OT1/pcr/m/n/10 Localization-and-Secondary-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -696,33 +735,36 @@ Underfull \hbox (badness 6641) in paragraph at lines 60--61
  base-lines are
  []
 
-<../results/figures/layer_pooling_heatmap.png, id=36, 433.62pt x 289.08pt>
+<../results/figures/layer_pooling_heatmap.png, id=45, 433.62pt x 289.08pt>
 File: ../results/figures/layer_pooling_heatmap.png Graphic file (type png)
 <use ../results/figures/layer_pooling_heatmap.png>
 Package pdftex.def Info: ../results/figures/layer_pooling_heatmap.png  used on 
-input line 91. on input line 91.
+input line 96. on input line 96.
 Package pdftex.def Info: Requested size: 234.8775pt x 156.58607pt on input line
- 91.
-<../results/figures/macro_f1_by_layer.png, id=39, 433.62pt x 289.08pt>
+ 96.
+<../results/figures/macro_f1_by_layer.png, id=48, 433.62pt x 289.08pt>
 File: ../results/figures/macro_f1_by_layer.png Graphic file (type png)
 <use ../results/figures/macro_f1_by_layer.png>
 Package pdftex.def Info: ../results/figures/macro_f1_by_layer.png  used on inpu
-t line 102. on input line 102.
+t line 107. on input line 107.
 Package pdftex.def Info: Requested size: 234.8775pt x 156.58607pt on input line
- 102.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2 <../results/figures/layer_pooling_heatmap.png>]
-<../results/figures/hpa_external_comparison.png, id=51, 505.89pt x 289.08pt>
+ 107.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 124.
+[2]
+<../results/figures/hpa_external_comparison.png, id=66, 505.89pt x 289.08pt>
 File: ../results/figures/hpa_external_comparison.png Graphic file (type png)
 <use ../results/figures/hpa_external_comparison.png>
 Package pdftex.def Info: ../results/figures/hpa_external_comparison.png  used o
-n input line 113. on input line 113.
+n input line 161. on input line 161.
 Package pdftex.def Info: Requested size: 234.8775pt x 134.2179pt on input line 
-113.
+161.
 
-Underfull \hbox (badness 1838) in paragraph at lines 146--147
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <../results/figures/layer_pooling_heatmap.png> <../results/figures/macro_f1
+_by_layer.png>]
+Underfull \hbox (badness 1838) in paragraph at lines 196--197
 []\OT1/ptm/m/n/10 (+20) Several lim-i-ta-tions con-strain the claims. First, th
 e
  []
@@ -730,39 +772,43 @@ e
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3 <../results/figures/macro_f1_by_layer.png> <../results/figures/hpa_external
-_comparison.png>] (./main.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
- [4
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
+(./main.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
+ [4 <../results/figures/hpa_external_comparison.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 155.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
- 18151 strings out of 494917
- 320736 string characters out of 6180700
- 423430 words of memory out of 5000000
- 21141 multiletter control sequences out of 15000+600000
- 557231 words of font info for 159 fonts, out of 8000000 for 9000
+ 18210 strings out of 494917
+ 321573 string characters out of 6180700
+ 427912 words of memory out of 5000000
+ 21185 multiletter control sequences out of 15000+600000
+ 560500 words of font info for 168 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 46i,11n,44p,10484b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,12n,44p,10484b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
-times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 337610 bytes).
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
+rw/times/utmri8a.pfb>
+Output written on main.pdf (4 pages, 393930 bytes).
 PDF statistics:
- 104 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
- 25 named destinations out of 1000 (max. 500000)
- 24592 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 138 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
+ 27152 words of extra memory for PDF output out of 29859 (max. 10000000)
 

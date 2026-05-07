@@ -18,11 +18,11 @@
   \icmltitle{Layer-wise Probing of ESM-2 Embeddings for Protein Localization and Secondary Structure}
 
   \begin{icmlauthorlist}
-    \icmlauthor{Anonymous Student}{mcb}
+    \icmlauthor{Wenye Xiong}{mcb}
   \end{icmlauthorlist}
 
   \icmlaffiliation{mcb}{MCB128 Final Project}
-  \icmlcorrespondingauthor{Anonymous Student}{student@example.edu}
+  \icmlcorrespondingauthor{Wenye Xiong}{wenyexiong@college.harvard.edu}
   \icmlkeywords{protein language models, ESM-2, probing, subcellular localization, secondary structure}
 
   \vskip 0.3in
@@ -31,7 +31,7 @@
 \printAffiliationsAndNotice{}
 
 \begin{abstract}
-Protein language models are often claimed to encode biological properties from sequence-only pretraining, but course-scale projects need simple tests that separate representation quality from large supervised architectures. We probe frozen ESM-2 embeddings for two biological prediction problems: multi-label subcellular localization on DeepLoc 2.0 and Q3 secondary-structure prediction on CullPDB/CB513. On DeepLoc cross-validation, shallow ESM probes substantially outperform composition baselines: the best 35M layer/pooling family improves Macro-F1 from 0.332 to 0.622, and a targeted 150M layer-30 attention extension reaches 0.663. The secondary-structure extension shows a clearer same-model depth effect: ESM-2 35M layer 12 reaches 0.821 validation Q3 accuracy and obtains 0.805 Q3 on CB513, compared with 0.491 and 0.487 for a sequence-only amino-acid lookup baseline. These results support the view that frozen protein-LM embeddings contain recoverable biological signal, but they also show that pooling choice, model scale, and external generalization complicate simple layer-ranking claims.
+Protein language models are often claimed to encode biological properties from sequence-only pretraining, but course-scale projects need simple tests that separate representation quality from large supervised architectures. We probe frozen ESM-2 embeddings for two biological prediction problems: multi-label subcellular localization on DeepLoc 2.0 and Q3 secondary-structure prediction on CullPDB/CB513. The evidence forms a ladder. First, frozen ESM-2 probes substantially outperform composition baselines on DeepLoc cross-validation: the best 35M layer/pooling family improves Macro-F1 from $0.332 \pm 0.009$ to $0.622 \pm 0.015$, and a targeted 150M layer-30 attention extension reaches $0.663 \pm 0.014$. Second, pooling and model scale matter, so layer rankings are not absolute. Third, external HPA evaluation is harder: the best HPA Macro-F1 among evaluated checkpoints is only 0.264, partly because several labels are absent or extremely rare. Finally, secondary structure gives a clearer positive control: ESM-2 35M layer 12 reaches $0.821 \pm 0.003$ validation Q3 accuracy and 0.805 Q3 on CB513, compared with 0.491 and 0.487 for an amino-acid lookup baseline. Overall, frozen protein-LM embeddings contain recoverable biological signal, but robust interpretation requires separating representation strength from pooling, scale, and dataset shift. Our code is available at \href{https://github.com/XiongWenye/Layer-wise-Probing-of-ESM-2-Embeddings-for-Protein-Localization-and-Secondary-Structure}{\texttt{https://github.com/XiongWenye/}\allowbreak\texttt{Layer-wise-Probing-of-ESM-2-}\allowbreak\texttt{Embeddings-for-Protein-}\allowbreak\texttt{Localization-and-Secondary-}\allowbreak\texttt{Structure}}.
 \end{abstract}
 
 \section{Introduction}
@@ -40,7 +40,7 @@ Protein language models (pLMs) are trained to model amino-acid sequences at larg
 
 We study this question with two tasks. The primary task is multi-label subcellular localization, where each protein can be assigned to one or more cellular compartments. This is biologically important because localization constrains protein function, and DeepLoc 2.0 showed that pLM features are useful for the task \citep{thumuluri2022deeploc}. As a supporting extension, we test residue-level Q3 secondary-structure prediction, motivated by work such as NetSurfP-3.0 showing that pLMs are strong inputs for local structural features \citep{hoie2022netsurfp}.
 
-Our original hypothesis was that middle-to-late ESM-2 layers would outperform early layers for both localization and secondary structure, and that frozen pLM embeddings would beat simple sequence baselines. The final evidence is supportive but nuanced. Frozen ESM-2 probes clearly beat composition baselines, layer 12 is much stronger than layer 6 for secondary structure, and layer 12 with attention pooling is the best localization family within the completed 35M grid. A targeted ESM-2 150M layer-30 attention experiment further improves DeepLoc cross-validation, but external HPA performance does not exactly mirror the DeepLoc ranking.
+Our original hypothesis was that middle-to-late ESM-2 layers would outperform early layers for both localization and secondary structure, and that frozen pLM embeddings would beat simple sequence baselines. The final story is supportive but deliberately scoped. We first ask whether ESM features beat composition. We then ask whether layer, pooling, and model scale change the signal exposed to a shallow probe. Finally, we check whether the DeepLoc ranking survives on HPA and whether a residue-level secondary-structure task gives a cleaner depth signal. This structure keeps the report from turning a small probing grid into an over-broad benchmark claim.
 
 \section{Related Work}
 
@@ -59,32 +59,37 @@ The main controlled grid uses frozen ESM-2 35M embeddings. For localization, we 
 \paragraph{Baselines and metrics.}
 Localization baselines are logistic-regression classifiers on amino-acid composition, dipeptide composition, and length plus amino-acid composition. Localization metrics are Micro-F1, Macro-F1, Jaccard, per-label MCC, and per-label AUROC. We emphasize F1 and Jaccard for HPA because some HPA labels have only one class present, making AUROC undefined for those labels. Secondary-structure baselines are deterministic residue predictors: a global majority-class predictor and an amino-acid lookup table that predicts the most frequent Q3 label for each residue type, falling back to the global majority label for unseen residues. Secondary-structure metrics are Q3 accuracy and per-class F1 for coil (C), strand (E), and helix (H).
 
+\paragraph{Post hoc diagnostics.}
+After model selection, we perform only light analysis on saved metrics and prediction files. For HPA, we compare selected DeepLoc checkpoints against their external scores and count true positives, predicted positives, F1, and MCC per label. For CB513, we summarize sequence-level Q3 accuracy by protein length bin to test whether the held-out secondary-structure result is driven by a narrow subset of proteins.
+
 \section{Results}
 
 \subsection{Frozen ESM-2 Probes Beat Composition Baselines}
 
 \begin{table}[t]
-\caption{DeepLoc 2.0 cross-validation results. Values are means over five folds and three seeds. The layer-30 row is a targeted ESM-2 150M attention-pooling extension; the other ESM rows use ESM-2 35M.}
+\caption{DeepLoc 2.0 cross-validation results. Values are mean $\pm$ standard deviation over five folds and three seeds for ESM probes, and over five folds for baselines. The layer-30 row is a targeted ESM-2 150M attention-pooling extension; the other ESM rows use ESM-2 35M.}
 \label{tab:deeploc}
 \centering
-\small
+\scriptsize
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 Model & Macro-F1 & Micro-F1 & Jaccard \\
 \midrule
-Dipeptide & 0.332 & 0.448 & 0.351 \\
-35M L6 mean & 0.588 & 0.682 & 0.630 \\
-35M L6 attention & 0.612 & 0.695 & 0.651 \\
-35M L6 max & 0.550 & 0.652 & 0.595 \\
-35M L12 mean & 0.603 & 0.690 & 0.637 \\
-35M L12 attention & 0.622 & 0.702 & 0.657 \\
-35M L12 max & 0.507 & 0.611 & 0.544 \\
-150M L30 attention & \textbf{0.663} & \textbf{0.721} & \textbf{0.682} \\
+Dipeptide & $0.332 \pm 0.009$ & $0.448 \pm 0.016$ & $0.351 \pm 0.015$ \\
+35M L6 mean & $0.588 \pm 0.011$ & $0.682 \pm 0.020$ & $0.630 \pm 0.020$ \\
+35M L6 attention & $0.612 \pm 0.013$ & $0.695 \pm 0.025$ & $0.651 \pm 0.028$ \\
+35M L6 max & $0.550 \pm 0.014$ & $0.652 \pm 0.021$ & $0.595 \pm 0.025$ \\
+35M L12 mean & $0.603 \pm 0.015$ & $0.690 \pm 0.019$ & $0.637 \pm 0.019$ \\
+35M L12 attention & $0.622 \pm 0.015$ & $0.702 \pm 0.031$ & $0.657 \pm 0.035$ \\
+35M L12 max & $0.507 \pm 0.013$ & $0.611 \pm 0.026$ & $0.544 \pm 0.032$ \\
+150M L30 attention & $\mathbf{0.663 \pm 0.014}$ & $\mathbf{0.721 \pm 0.022}$ & $\mathbf{0.682 \pm 0.024}$ \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
-Table~\ref{tab:deeploc} shows the main DeepLoc result. The best sequence-composition baseline is dipeptide logistic regression, with Macro-F1 0.332. Every ESM-2 probe family shown substantially improves over this baseline, although max pooling is clearly weaker than mean or attention pooling. Within the completed 35M grid, layer 12 with attention pooling reaches Macro-F1 0.622, a gain of about 29 Macro-F1 points over the best baseline. The targeted ESM-2 150M layer-30 attention experiment improves further to Macro-F1 0.663.
+Table~\ref{tab:deeploc} shows the first and strongest result. The best sequence-composition baseline is dipeptide logistic regression, with Macro-F1 $0.332 \pm 0.009$. Every ESM-2 probe family shown substantially improves over this baseline, although max pooling is clearly weaker than mean or attention pooling. Within the completed 35M grid, layer 12 with attention pooling reaches Macro-F1 $0.622 \pm 0.015$, a gain of about 29 Macro-F1 points over the best baseline. The targeted ESM-2 150M layer-30 attention experiment improves further to $0.663 \pm 0.014$.
 
 \begin{figure}[t]
 \centering
@@ -106,7 +111,50 @@ The localization results support the hypothesis that a later ESM-2 layer can be 
 
 \subsection{External HPA Evaluation Is Mixed}
 
-For the 35M grid, the selected layer 12 attention model was evaluated on the independent HPA set. It obtains Macro-F1 0.232, Micro-F1 0.545, and Jaccard 0.459. For comparison, layer 6 attention obtains Macro-F1 0.246, Micro-F1 0.570, and Jaccard 0.485, while layer 12 mean obtains Macro-F1 0.264, Micro-F1 0.545, and Jaccard 0.453. After the targeted L30 extension, the selected ESM-2 150M layer-30 attention checkpoint obtains Macro-F1 0.238, Micro-F1 0.561, and Jaccard 0.472 on HPA. Thus, the model selected by DeepLoc cross-validation is not necessarily the strongest HPA model, and the L30 CV gain does not fully transfer to external Macro-F1. This supports reporting HPA as an external generalization check rather than as a definitive layer-ranking result.
+\begin{table}[t]
+\caption{Transfer from selected DeepLoc checkpoints to HPA. The DeepLoc column is the selected checkpoint's held-out-fold Macro-F1, not the family mean.}
+\label{tab:hpa_transfer}
+\centering
+\scriptsize
+\begin{tabular}{lcccc}
+\toprule
+Checkpoint & DeepLoc & HPA Macro & HPA Micro & HPA Jac. \\
+\midrule
+35M L6 mean & 0.605 & 0.240 & 0.551 & 0.468 \\
+35M L6 attn. & 0.638 & 0.246 & \textbf{0.570} & \textbf{0.485} \\
+35M L12 mean & 0.624 & \textbf{0.264} & 0.545 & 0.453 \\
+35M L12 attn. & 0.640 & 0.232 & 0.545 & 0.459 \\
+150M L30 attn. & \textbf{0.681} & 0.238 & 0.561 & 0.472 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the evaluated checkpoints, HPA does not preserve the DeepLoc ranking (Table~\ref{tab:hpa_transfer}). The selected ESM-2 150M layer-30 attention checkpoint has the strongest DeepLoc held-out-fold Macro-F1 among these examples (0.681), but obtains only 0.238 HPA Macro-F1. The best HPA Macro-F1 is instead the 35M layer 12 mean checkpoint at 0.264, while layer 6 attention has the best HPA Micro-F1 and Jaccard. Thus, HPA is more useful here as an external robustness check than as evidence for a clean layer or scale ordering.
+
+\begin{table}[t]
+\caption{HPA label diagnostics for the checkpoint with best HPA Macro-F1, 35M layer 12 mean. True and predicted counts are out of 1650 proteins. ER denotes endoplasmic reticulum and Lyso/Vac denotes lysosome/vacuole.}
+\label{tab:hpa_labels}
+\centering
+\scriptsize
+\begin{tabular}{lrrrr}
+\toprule
+Label & True & Pred. & F1 & MCC \\
+\midrule
+Cytoplasm & 535 & 1082 & 0.542 & 0.238 \\
+Nucleus & 859 & 840 & 0.695 & 0.371 \\
+Extracellular & 0 & 60 & 0.000 & 0.000 \\
+Cell membrane & 274 & 116 & 0.349 & 0.310 \\
+Mitochondrion & 194 & 220 & 0.493 & 0.421 \\
+Plastid & 0 & 7 & 0.000 & 0.000 \\
+ER & 76 & 26 & 0.118 & 0.111 \\
+Lyso/Vac & 2 & 55 & 0.000 & -0.006 \\
+Golgi & 84 & 19 & 0.194 & 0.233 \\
+Peroxisome & 7 & 9 & 0.250 & 0.248 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The label-level view explains why Macro-F1 is low even when common compartments are partly recovered (Table~\ref{tab:hpa_labels}). HPA contains no positives for Extracellular or Plastid, only two Lysosome/Vacuole positives, and only seven Peroxisome positives. False positives on absent labels and failures on rare labels receive equal weight in Macro-F1, while common labels such as Nucleus, Cytoplasm, and Mitochondrion are much stronger. This imbalance makes the external result a dataset-shift diagnostic rather than a simple contradiction of the DeepLoc cross-validation finding.
 
 \begin{figure}[t]
 \centering
@@ -137,17 +185,19 @@ L12 CB513 & 0.805 & 0.798 & 0.757 & 0.845 \\
 \end{tabular}
 \end{table}
 
-The secondary-structure extension gives the clearest evidence for a depth effect and now has a simple non-ESM reference point. The majority baseline reaches only 0.385 validation Q3 accuracy, and the amino-acid lookup baseline reaches 0.491. In contrast, layer 12 reaches 0.821 validation Q3 accuracy, compared with 0.752 for layer 6. The selected layer 12 probe obtains 0.805 Q3 accuracy on CB513, well above the amino-acid lookup baseline's 0.487, with per-class F1 scores of 0.798 for coil, 0.757 for strand, and 0.845 for helix. This supports the idea that deeper ESM-2 layers expose more local structural information to a shallow token-level probe than can be recovered from residue identity alone.
+The secondary-structure extension gives the clearest evidence for a depth effect and now has a simple non-ESM reference point. The majority baseline reaches only $0.385 \pm 0.004$ validation Q3 accuracy, and the amino-acid lookup baseline reaches $0.491 \pm 0.002$. In contrast, layer 12 reaches $0.821 \pm 0.003$ validation Q3 accuracy, compared with $0.752 \pm 0.002$ for layer 6. The selected layer 12 probe obtains 0.805 Q3 accuracy on CB513, well above the amino-acid lookup baseline's 0.487, with per-class F1 scores of 0.798 for coil, 0.757 for strand, and 0.845 for helix.
+
+Sequence-level CB513 diagnostics suggest the result is broad rather than restricted to one length regime. Mean per-sequence Q3 is 0.797 for 85 proteins of length at most 100, 0.802 for 129 proteins of length 101--200, and 0.810 for 295 proteins longer than 200. The worst individual sequence is still low (0.350 Q3), so there are difficult cases, but average performance is similar across length bins. This supports the idea that deeper ESM-2 layers expose local structural information to a shallow token-level probe beyond what can be recovered from residue identity alone.
 
 \section{Discussion and Limitations}
 
-The strongest conclusion is that frozen ESM-2 embeddings contain substantial recoverable signal for both localization and local structure. On DeepLoc, the gain over composition baselines is large enough that the qualitative finding is not sensitive to small metric fluctuations, and the targeted ESM-2 150M layer-30 attention experiment suggests that larger/deeper embeddings can further improve cross-validation performance. On secondary structure, the ESM-2 35M layer 12 advantage over layer 6 is also large and stable across seeds.
+The strongest conclusion is that frozen ESM-2 embeddings contain substantial recoverable signal for both localization and local structure. On DeepLoc, the gain over composition baselines is large enough that the qualitative finding is not sensitive to small metric fluctuations. The targeted ESM-2 150M layer-30 attention experiment suggests that larger/deeper embeddings can further improve cross-validation performance, but the HPA transfer table warns against turning that into a universal scale claim. On secondary structure, the ESM-2 35M layer 12 advantage over layer 6 is larger, cleaner, and stable across seeds.
 
 Several limitations constrain the claims. First, the layer/pooling grid is complete only for ESM-2 35M layers 6 and 12; the ESM-2 150M layer-30 result is an attention-only extension, not a full 150M pooling sweep. Second, we did not run the one-hot CNN or BiLSTM baselines proposed initially, so the localization baseline comparison is against classical sequence-composition features rather than learned sequence models. Third, we did not run 650M probes or a full-depth ESM-2 sweep. Finally, we did not attempt LoRA, PEFT, or DisProt extensions. These omissions are acceptable for a course project, but they mean the report should frame the findings as a scoped probing study rather than a comprehensive benchmark.
 
 \section{Conclusion}
 
-This project tested whether biological information is recoverable from frozen ESM-2 representations using shallow probes. The answer is yes: ESM-2 probes strongly outperform composition baselines for DeepLoc localization, and layer 12 embeddings support strong Q3 secondary-structure prediction on CB513. The layer-wise story is now more supportive of the original hypothesis, with layer 12 attention best within the 35M DeepLoc grid, ESM-2 150M layer-30 attention improving DeepLoc cross-validation further, and layer 12 clearly best for secondary structure. The remaining nuance is that localization depends strongly on pooling and the HPA external set does not exactly preserve the DeepLoc cross-validation ranking.
+This project tested whether biological information is recoverable from frozen ESM-2 representations using shallow probes. The answer is yes, with useful caveats. ESM-2 probes strongly outperform composition baselines for DeepLoc localization, layer 12 attention is best within the completed 35M localization grid, and the targeted 150M layer-30 attention run improves DeepLoc cross-validation further. The secondary-structure task gives the cleanest depth result: layer 12 substantially outperforms layer 6 and generalizes well to CB513. The main caution is that localization transfer to HPA is mixed because pooling, model scale, and label distribution shift all matter. The most defensible story is therefore not ``later is always better,'' but that frozen ESM-2 contains strong biological signal whose recoverability depends on the readout and evaluation setting.
 
 \bibliography{references}
 \bibliographystyle{icml2026}
