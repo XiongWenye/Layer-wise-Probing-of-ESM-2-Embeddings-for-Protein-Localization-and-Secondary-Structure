@@ -8,7 +8,7 @@
 \usepackage{hyperref}
 \usepackage[preprint]{icml2026}
 
-\graphicspath{{../results/figures/}}
+\graphicspath{{../results/figures/}{figure/}}
 
 \icmltitlerunning{Layer-wise Probing of ESM-2 Embeddings}
 
@@ -41,6 +41,13 @@ Protein language models (pLMs) are trained to model amino-acid sequences at larg
 We study this question with two tasks. The primary task is multi-label subcellular localization, where each protein can be assigned to one or more cellular compartments. This is biologically important because localization constrains protein function, and DeepLoc 2.0 showed that pLM features are useful for the task \citep{thumuluri2022deeploc}. As a supporting extension, we test residue-level Q3 secondary-structure prediction, motivated by work such as NetSurfP-3.0 showing that pLMs are strong inputs for local structural features \citep{hoie2022netsurfp}.
 
 Our original hypothesis was that middle-to-late ESM-2 layers would outperform early layers for both localization and secondary structure, and that frozen pLM embeddings would beat simple sequence baselines. The final story is supportive but deliberately scoped. We first ask whether ESM features beat composition. We then ask whether layer, pooling, and model scale change the signal exposed to a shallow probe. Finally, we check whether the DeepLoc ranking survives on HPA and whether a residue-level secondary-structure task gives a cleaner depth signal. This structure keeps the report from turning a small probing grid into an over-broad benchmark claim.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{workflow.png}
+\caption{Project workflow. Protein sequences are converted to frozen ESM-2 hidden states, pooled or kept at token level, and passed to shallow probes for localization and secondary-structure prediction. The report focuses on F1/Jaccard for localization and Q3 accuracy for secondary structure, with HPA and CB513 used only after model selection.}
+\label{fig:workflow}
+\end{figure*}
 
 \section{Related Work}
 
@@ -193,7 +200,10 @@ Sequence-level CB513 diagnostics suggest the result is broad rather than restric
 
 The strongest conclusion is that frozen ESM-2 embeddings contain substantial recoverable signal for both localization and local structure. On DeepLoc, the gain over composition baselines is large enough that the qualitative finding is not sensitive to small metric fluctuations. The targeted ESM-2 150M layer-30 attention experiment suggests that larger/deeper embeddings can further improve cross-validation performance, but the HPA transfer table warns against turning that into a universal scale claim. On secondary structure, the ESM-2 35M layer 12 advantage over layer 6 is larger, cleaner, and stable across seeds.
 
-Several limitations constrain the claims. First, the layer/pooling grid is complete only for ESM-2 35M layers 6 and 12; the ESM-2 150M layer-30 result is an attention-only extension, not a full 150M pooling sweep. Second, we did not run the one-hot CNN or BiLSTM baselines proposed initially, so the localization baseline comparison is against classical sequence-composition features rather than learned sequence models. Third, we did not run 650M probes or a full-depth ESM-2 sweep. Finally, we did not attempt LoRA, PEFT, or DisProt extensions. These omissions are acceptable for a course project, but they mean the report should frame the findings as a scoped probing study rather than a comprehensive benchmark.
+Several limitations constrain the claims. First, the layer/pooling grid is complete only for ESM-2 35M layers 6 and 12; the ESM-2 150M layer-30 result is an attention-only extension, not a full 150M pooling sweep. 
+Second, we did not run the one-hot CNN or BiLSTM baselines proposed initially, so the localization baseline comparison is against classical sequence-composition features rather than learned sequence models. 
+Finally, due to time and compute constraints, we did not run 650M probes or a full-depth ESM-2 sweep. 
+These limitations mean that we should frame the findings as a scoped probing study rather than a comprehensive benchmark.
 
 \section{Conclusion}
 

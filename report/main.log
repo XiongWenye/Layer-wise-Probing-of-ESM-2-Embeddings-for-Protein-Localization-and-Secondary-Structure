@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2025.7.7)  7 MAY 2026 18:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2025.7.7)  7 MAY 2026 20:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -722,6 +722,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--35
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<figure/workflow.png, id=13, 1541.76pt x 1027.84pt>
+File: figure/workflow.png Graphic file (type png)
+<use figure/workflow.png>
+Package pdftex.def Info: figure/workflow.png  used on input line 47. on input l
+ine 47.
+Package pdftex.def Info: Requested size: 487.8225pt x 325.2142pt on input line 
+47.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -730,66 +737,76 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Underfull \hbox (badness 6641) in paragraph at lines 60--61
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 6641) in paragraph at lines 67--68
  \OT1/ptm/b/n/10 Base-lines and met-rics. \OT1/ptm/m/n/10 (+20) Lo-cal-iza-tion
  base-lines are
  []
 
-<../results/figures/layer_pooling_heatmap.png, id=45, 433.62pt x 289.08pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <./figure/workflow.png (PNG copy)>]
+<../results/figures/layer_pooling_heatmap.png, id=52, 433.62pt x 289.08pt>
 File: ../results/figures/layer_pooling_heatmap.png Graphic file (type png)
 <use ../results/figures/layer_pooling_heatmap.png>
 Package pdftex.def Info: ../results/figures/layer_pooling_heatmap.png  used on 
-input line 96. on input line 96.
+input line 103. on input line 103.
 Package pdftex.def Info: Requested size: 234.8775pt x 156.58607pt on input line
- 96.
-<../results/figures/macro_f1_by_layer.png, id=48, 433.62pt x 289.08pt>
+ 103.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+<../results/figures/macro_f1_by_layer.png, id=55, 433.62pt x 289.08pt>
 File: ../results/figures/macro_f1_by_layer.png Graphic file (type png)
 <use ../results/figures/macro_f1_by_layer.png>
 Package pdftex.def Info: ../results/figures/macro_f1_by_layer.png  used on inpu
-t line 107. on input line 107.
+t line 114. on input line 114.
 Package pdftex.def Info: Requested size: 234.8775pt x 156.58607pt on input line
- 107.
+ 114.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 124.
-[2]
-<../results/figures/hpa_external_comparison.png, id=66, 505.89pt x 289.08pt>
-File: ../results/figures/hpa_external_comparison.png Graphic file (type png)
-<use ../results/figures/hpa_external_comparison.png>
-Package pdftex.def Info: ../results/figures/hpa_external_comparison.png  used o
-n input line 161. on input line 161.
-Package pdftex.def Info: Requested size: 234.8775pt x 134.2179pt on input line 
-161.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 131.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [3 <../results/figures/layer_pooling_heatmap.png> <../results/figures/macro_f1
 _by_layer.png>]
-Underfull \hbox (badness 1838) in paragraph at lines 196--197
+<../results/figures/hpa_external_comparison.png, id=75, 505.89pt x 289.08pt>
+File: ../results/figures/hpa_external_comparison.png Graphic file (type png)
+<use ../results/figures/hpa_external_comparison.png>
+Package pdftex.def Info: ../results/figures/hpa_external_comparison.png  used o
+n input line 168. on input line 168.
+Package pdftex.def Info: Requested size: 234.8775pt x 134.2179pt on input line 
+168.
+
+Underfull \vbox (badness 1142) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1838) in paragraph at lines 203--207
 []\OT1/ptm/m/n/10 (+20) Several lim-i-ta-tions con-strain the claims. First, th
 e
  []
 
+[4 <../results/figures/hpa_external_comparison.png>] (./main.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 215.
+ [5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 215.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-(./main.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
- [4 <../results/figures/hpa_external_comparison.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
- (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
+(./main.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 215.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 215.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 215.
  ) 
 Here is how much of TeX's memory you used:
- 18210 strings out of 494917
- 321573 string characters out of 6180700
- 427912 words of memory out of 5000000
- 21185 multiletter control sequences out of 15000+600000
- 560500 words of font info for 168 fonts, out of 8000000 for 9000
+ 18222 strings out of 494917
+ 321750 string characters out of 6180700
+ 430288 words of memory out of 5000000
+ 21190 multiletter control sequences out of 15000+600000
+ 560619 words of font info for 170 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  46i,12n,44p,10484b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -805,10 +822,10 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 xlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 393930 bytes).
+Output written on main.pdf (5 pages, 2012854 bytes).
 PDF statistics:
- 138 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
- 27 named destinations out of 1000 (max. 500000)
- 27152 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 144 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 27157 words of extra memory for PDF output out of 29859 (max. 10000000)
 
